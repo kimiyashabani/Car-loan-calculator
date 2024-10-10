@@ -6,6 +6,7 @@ from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
 import time
 import numpy as np
+from Recommendation import Recommendation
 class Calculation:
     def __init__(self, car_make, car_model, car_year, user_state, user_credit_score, down_payment=None, time_of_loan=30, average_miles_per_month=1000):
         self.car_make = car_make
@@ -163,7 +164,9 @@ class Calculation:
             if cell_data[1].lower() == self.car_make.lower():
                 final_price = int(cell_data[2].replace("$", "").replace(",", ""))
                 # Devision by 10 because the website gives us the 10 Year Maintenance Cost
-                return final_price/10
+                yearly_repair_cost = final_price/10
+                monthly_repair_cost = yearly_repair_cost / 12
+                return yearly_repair_cost, monthly_repair_cost
 
 
     def calling_all_methods(self):
@@ -184,12 +187,35 @@ class Calculation:
         gas_cost = self.gas_cost_calculator()
         print(f"Gas Cost: {gas_cost}")
 
-        repair_cost = self.repair_cost_calculation()
-        print(f"Repair Cost: {repair_cost}")
+        yearly_repair_cost = self.repair_cost_calculation()[0]
+        print(f"Repair Cost: {yearly_repair_cost}")
 
-        monthly_repair_cost = repair_cost / 12
+        monthly_repair_cost = self.repair_cost_calculation()[1]
         print(f"Monthly Repair Cost: {monthly_repair_cost}")
-        #return expected_purchase_price, expected_insurance_cost, interest_rate, monthly_loan_payment, gas_cost, repair_cost, yearly_repair_cost
+
+        car_data = {
+            "make": self.car_make,
+            "model": self.car_model,
+            "year": self.car_year,
+            "state": self.user_state,
+            "credit_score": self.user_credit_score,
+            "down_payment": self.down_payment,
+            "time_of_loan": self.time_of_loan,
+            "average_miles_per_month": self.average_miles_per_month,
+            "expected_purchase_price": expected_purchase_price,
+            "expected_insurance_cost": expected_insurance_cost,
+            "interest_rate": interest_rate,
+            "monthly_loan_payment": monthly_loan_payment,
+            "gas_cost": gas_cost,
+            "yearly_repair_cost": yearly_repair_cost,
+            "monthly_repair_cost": monthly_repair_cost
+        }
+
+        return car_data
+    def set_car(self):
+        recommendation = Recommendation()
+        car_data = self.calling_all_methods()
+        recommendation.add_car(car_data)
 
 
 
