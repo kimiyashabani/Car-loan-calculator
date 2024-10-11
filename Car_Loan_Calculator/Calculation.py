@@ -7,17 +7,11 @@ from selenium.common.exceptions import NoSuchElementException
 import time
 import numpy as np
 from Recommendation import Recommendation
-class Calculation:
-    def __init__(self, car_make, car_model, car_year, user_state, user_credit_score, down_payment=None, time_of_loan=30, average_miles_per_month=1000):
-        self.car_make = car_make
-        self.car_model = car_model
-        self.car_year = car_year
-        self.user_state = user_state
-        self.user_credit_score = user_credit_score
-        self.down_payment = down_payment
-        self.time_of_loan = time_of_loan
-        self.average_miles_per_month = average_miles_per_month
 
+
+class Calculation:
+    def __init__(self, user_data):
+        self.user_data = user_data
 
     # EXPECTED PURCHASE PRICE
     def expected_purchase_price(self):
@@ -39,7 +33,7 @@ class Calculation:
             make_dropdown.click()
             make_options = make_dropdown.find_elements(By.TAG_NAME, 'Option')
             for option in make_options:
-                if option.get_attribute('value').lower() == self.car_make.lower():
+                if option.get_attribute('value').lower() == self.user_data.car_make.lower():
                     option.click()
                     break
 
@@ -49,7 +43,7 @@ class Calculation:
             model_dropdown.click()
             model_options = model_dropdown.find_elements(By.TAG_NAME, 'Option')
             for option in model_options:
-                if option.get_attribute('value').lower() == self.car_model.lower():
+                if option.get_attribute('value').lower() == self.user_data.car_model.lower():
                     option.click()
                     break
 
@@ -59,7 +53,7 @@ class Calculation:
             year_dropdown.click()
             year_options = year_dropdown.find_elements(By.TAG_NAME, 'Option')
             for option in year_options:
-                if option.get_attribute('value') == self.car_year:
+                if option.get_attribute('value') == self.user_data.car_year:
                     option.click()
                     break
             # Clicking on Submit Button
@@ -76,7 +70,6 @@ class Calculation:
         # closing the driver
         driver.quit()
 
-
     # EXPECTED INSURANCE COST
     def expected_insurance_cost(self):
         insurance_url = "https://www.bankrate.com/insurance/car/average-cost-of-car-insurance/#car-insurance-cost-by-state"
@@ -86,53 +79,49 @@ class Calculation:
                              class_="display-flex flex-direction-column border-b border-gray mb-3 sm:display-table-row")
         for row in rows:
             state_link = row.find("a")
-            if state_link and state_link.text.strip().lower() == self.user_state.lower():
+            if state_link and state_link.text.strip().lower() == self.user_data.user_state.lower():
                 insurance_cost = row.find_all("div", class_="insurance-coverage-table--td text-black")[0]
                 return insurance_cost.text.strip()
         return None
 
-
     # LOAN INTEREST RATE
     # Data from CNN :
     # https://edition.cnn.com/cnn-underscored/money/auto-loan-interest-rates-by-credit-score
-    def get_interest_rate(self, user_credit_score):
-        if user_credit_score >= 781 and user_credit_score <= 850:
+    def get_interest_rate(self):
+        if 781 <= self.user_data.user_credit_score <= 850:
             interest_rate = 5.25
-        elif user_credit_score >= 661 and user_credit_score <= 780:
+        elif 661 <= self.user_data.user_credit_score <= 780:
             interest_rate = 6.87
-        elif user_credit_score >= 601 and user_credit_score <= 660:
+        elif 601 <= self.user_data.user_credit_score <= 660:
             interest_rate = 9.83
-        elif user_credit_score >= 501 and user_credit_score <= 600:
+        elif 501 <= self.user_data.user_credit_score <= 600:
             interest_rate = 13.18
         else:
             interest_rate = 15.77
         return interest_rate
 
-
-
     # CALCULATE THE MONTHLY LOAN PAYMENT
     def loan_calculator(self):
         purchase_price = self.expected_purchase_price()
-        interest_rate = self.get_interest_rate(self.user_credit_score)
-        if self.down_payment is not None:
-            p = purchase_price - self.down_payment
+        interest_rate = self.get_interest_rate()
+        if self.user_data.down_payment is not None:
+            p = purchase_price - self.user_data.down_payment
         else:
             p = purchase_price
 
         r = interest_rate / 100 / 12
-        n = self.time_of_loan
+        n = self.user_data.time_of_loan
         monthly_payment = p(r * np.power(1 + r, n)) / (np.power(1 + r, n) - 1)
 
         return monthly_payment
-
 
     # CALCULATE THE GAS COST
     def gas_cost_calculator(self):
         gas_cost_url = "https://www.fueleconomy.gov/ws/rest/vehicle/menu/options"
         params = {
-            'year': self.car_year,
-            'make': self.car_make,
-            'model': self.car_model
+            'year': self.user_data.car_year,
+            'make': self.user_data.car_make,
+            'model': self.user_data.car_model
         }
         response = requests.get(gas_cost_url, params=params)
         if response.status_code != 200:
@@ -143,9 +132,8 @@ class Calculation:
         combined_mpg = vehicle_data.find('comb08').text
         # I assumed the gas price is 4.0 euros per gallon
         gas_price_per_gallon = 4.0
-        monthly_gas_cost = (self.average_miles_per_month / float(combined_mpg)) * gas_price_per_gallon
-        return (monthly_gas_cost)
-
+        monthly_gas_cost = (self.user_data.average_miles_per_month / float(combined_mpg)) * gas_price_per_gallon
+        return monthly_gas_cost
 
     # CALCULATE THE REPAIR AND MAINTENANCE COST (YEARLY & MONTHLY)
     def repair_cost_calculation(self):
@@ -161,13 +149,12 @@ class Calculation:
         for row in rows:
             cells = row.find_all("td")
             cell_data = [cell.get_text(strip=True) for cell in cells]
-            if cell_data[1].lower() == self.car_make.lower():
+            if cell_data[1].lower() == self.user_data.car_make.lower():
                 final_price = int(cell_data[2].replace("$", "").replace(",", ""))
                 # Devision by 10 because the website gives us the 10 Year Maintenance Cost
-                yearly_repair_cost = final_price/10
+                yearly_repair_cost = final_price / 10
                 monthly_repair_cost = yearly_repair_cost / 12
                 return yearly_repair_cost, monthly_repair_cost
-
 
     def calling_all_methods(self):
         print("----- Calculating All Costs -----")
@@ -178,7 +165,7 @@ class Calculation:
         expected_insurance_cost = self.expected_insurance_cost()
         print(f"Expected Insurance Cost: {expected_insurance_cost}")
 
-        interest_rate = self.get_interest_rate(self.user_credit_score)
+        interest_rate = self.get_interest_rate()
         print(f"Interest Rate: {interest_rate}")
 
         monthly_loan_payment = self.loan_calculator()
@@ -194,14 +181,14 @@ class Calculation:
         print(f"Monthly Repair Cost: {monthly_repair_cost}")
 
         car_data = {
-            "make": self.car_make,
-            "model": self.car_model,
-            "year": self.car_year,
-            "state": self.user_state,
-            "credit_score": self.user_credit_score,
-            "down_payment": self.down_payment,
-            "time_of_loan": self.time_of_loan,
-            "average_miles_per_month": self.average_miles_per_month,
+            "make": self.user_data.car_make,
+            "model": self.user_data.car_model,
+            "year": self.user_data.car_year,
+            "state": self.user_data.user_state,
+            "credit_score": self.user_data.user_credit_score,
+            "down_payment": self.user_data.down_payment,
+            "time_of_loan": self.user_data.time_of_loan,
+            "average_miles_per_month": self.user_data.average_miles_per_month,
             "expected_purchase_price": expected_purchase_price,
             "expected_insurance_cost": expected_insurance_cost,
             "interest_rate": interest_rate,
@@ -212,13 +199,8 @@ class Calculation:
         }
 
         return car_data
+
     def set_car(self):
         recommendation = Recommendation()
         car_data = self.calling_all_methods()
         recommendation.add_car(car_data)
-
-
-
-
-
-
