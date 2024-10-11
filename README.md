@@ -43,7 +43,7 @@ Before installation, make sure your system meets the following requirements:
 2. Navigate to the project directory:
      ```bash
    cd yourprojectname
-3.(Optional) Create a virtual environment:
+3. (Optional) Create a virtual environment:
     ```bash
     python -m venv venv
     ```bash
