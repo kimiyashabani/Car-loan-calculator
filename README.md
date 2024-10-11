@@ -56,7 +56,7 @@ Before installation, make sure your system meets the following requirements:
    ```bash
    python main.py
 2. Follow the prompts to enter the required inputs(e.g., car model, year, your state, etc).
-# Example
+### Example
     ```bash
     What is your car brand? Toyota
     What is your car model? Corolla
@@ -72,8 +72,8 @@ If you like to contribute to this project please follow the guideline:
 - Push to the branch (git push origin feature/your-feature)
 - Create a new Pull Request
 
-  ## License
-  ## Contact
+## License
+## Contact
   - Kimiya Shabani @kimiyashabani
   - Project link: 
 
