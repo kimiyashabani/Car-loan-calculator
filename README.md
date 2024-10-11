@@ -1,8 +1,5 @@
 # Car-loan-calculator
 ![DALL·E 2024-10-08 21 58 11 - A detailed illustration of a modern office desk with a computer displaying a car loan calculation software interface  The interface shows input fields](https://github.com/user-attachments/assets/af6f0dac-3ef7-4f55-9888-1dd70bdf223a)
-# Project Name
-
-Brief description of your project, what it does, and its key features.
 
 ## Table of Contents
 
@@ -16,7 +13,7 @@ Brief description of your project, what it does, and its key features.
 
 ## Overview
 
-Provide a more detailed description of the project here. You can include the purpose of the project, its scope, and what problem it solves.
+This project which is written in Python will ask you the data of 2 cars you're interested in and in the end, it will compare them. After using this program, it will be easier for you to make your final decision about the car. This program is designed to be run in the command line and it will visualize the data in the end.
 
 - **Version:** 1.0
 - **Language:** Python
@@ -24,7 +21,8 @@ Provide a more detailed description of the project here. You can include the pur
     - `pandas`
     - `numpy`
     - `matplotlib`
-    - Any other dependencies your project has
+    - `selenium`
+    - `Beautiful soup`
 
 ## Features
 
@@ -36,9 +34,48 @@ List the key features of your project, for example:
 
 ## Installation
 
-Explain how users can install your project. If you are using a package manager like `pip`, include the necessary installation steps.
+Before installation, make sure your system meets the following requirements:
+    -Python 3.x
 
 1. Clone this repository:
    ```bash
    git clone https://github.com/yourusername/yourprojectname.git
+2. Navigate to the project directory:
+     ```bash
+   cd yourprojectname
+3.(Optional) Create a virtual environment:
+    ```bash
+    python -m venv venv
+    source venv/bin/activate   # On Windows use `venv\Scripts\activate`
+4.Install dependencies
+    ```bash
+    pip install -r requirements.txt
+
+## Usage
+1. Run the main script:
+   ```bash
+   python main.py
+2. Follow the prompts to enter the required inputs(e.g., car model, year, your state, etc).
+# Example
+    ```bash
+    What is your car brand? Toyota
+    What is your car model? Corolla
+    Enter the year of your car: 2021
+    In which state of United States do you live? California
+    What is your credit score? 720
+
+## Contributing
+If you like to contribute to this project please follow the guideline:
+- Fork the repository
+- Create a new branch (git checkout -b feature/your-feature)
+- Commit your changes (git commit -am 'Add your feature')
+- Push to the branch (git push origin feature/your-feature)
+- Create a new Pull Request
+
+  ## License
+  ## Contact
+  - Kimiya Shabani @kimiyashabani
+  - Project link: 
+
+    
 
