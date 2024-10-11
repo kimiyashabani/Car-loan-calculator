@@ -46,7 +46,6 @@ Before installation, make sure your system meets the following requirements:
 3. (Optional) Create a virtual environment:
     ```bash
     python -m venv venv
-    ```bash
     source venv/bin/activate   # On Windows use `venv\Scripts\activate`
 4.Install dependencies
     ```bash
@@ -57,6 +56,7 @@ Before installation, make sure your system meets the following requirements:
    ```bash
    python main.py
 2. Follow the prompts to enter the required inputs(e.g., car model, year, your state, etc).
+   
 ### Example
     ```bash
     What is your car brand? Toyota
