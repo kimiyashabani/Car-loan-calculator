@@ -54,13 +54,15 @@ Furthermore, you will need to have an API Token Key. In order to do so
 This will be the JSON result we'll get
 ![Screenshot 2024-10-12 164612](https://github.com/user-attachments/assets/255952fb-3bc1-4835-a7a8-739830fcec3f)
 After getting your api key and set it in the Calculation.py
-7. Clone this repository:
+![Screenshot 2024-10-12 184323 copy](https://github.com/user-attachments/assets/f7f9ba2c-0a97-4814-b039-0e7c4003381e)
+
+8. Clone this repository:
    ```bash
    git clone https://github.com/yourusername/yourprojectname.git
-8. Navigate to the project directory:
+9. Navigate to the project directory:
      ```bash
    cd yourprojectname
-9. (Optional) Create a virtual environment:
+10. (Optional) Create a virtual environment:
     ```bash
     python -m venv venv
     source venv/bin/activate   # On Windows use `venv\Scripts\activate`
