@@ -26,8 +26,8 @@ class Recommendation:
         axs[0,2].plot([first_car[-1],second_car[-1]], [first_car[2], second_car[2]], marker='o', color='red')
         axs[0,2].set_title(categories[2])
 
-        # Plot 4: Scatter plot for gas cost
-        axs[1,0].scatter([first_car[-1],second_car[-1]], [first_car[3], second_car[3]], color='purple')
+        # Plot 4: Bar chart for gas cost
+        axs[1,0].bar([first_car[-1],second_car[-1]], [first_car[3], second_car[3]], color=['orange','yellow'])
         axs[1,0].set_title(categories[3])
 
         # Plot 5: Bar chart for yearly repair cost
@@ -38,16 +38,19 @@ class Recommendation:
         axs[1,2].plot([first_car[-1],second_car[-1]], [first_car[5], second_car[5]], marker='o', color='orange')
         axs[1,2].set_title(categories[5])
 
-        # Plot 7: Scatter plot for interest rate
-        axs[2,0].scatter([first_car[-1],second_car[-1]], [first_car[6], second_car[6]], color='brown')
+        # Plot 7: Line plot for interest rate
+        axs[2,0].scatter([first_car[-1],second_car[-1]], [first_car[6], second_car[6]], marker='o', color='brown')
         axs[2,0].set_title(categories[6])
 
         #Hiding the empty subplots
         axs[2,1].axis('off')
+        axs[2, 2].axis('off')
 
         plt.tight_layout()
 
         plt.show()
+    def print_car(self):
+        print(self.cars)
 
 
 

@@ -5,11 +5,18 @@ from Recommendation import *
 
 
 def main():
-    for i in range(0, 2):
+    recommendation = Recommendation()
+    car_count = 0
+    while car_count < 2:
         userinput = Userinput()
         calculation = Calculation(userinput)
-        calculation.set_car()
-    recommendation = Recommendation()
+        expected_purchase_price = calculation.expected_purchase_price()
+        if expected_purchase_price is None:
+            print("expected purchase price is none. please enter the correct information")
+        else:
+            calculation.set_car(recommendation)
+            car_count += 1
+
     recommendation.visualiza_data()
 
 
