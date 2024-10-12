@@ -114,7 +114,10 @@ If you like to contribute to this project please follow the guideline:
 - Push to the branch (git push origin feature/your-feature)
 - Create a new Pull Request
 
-## License
+## Visualize
+![Untitled design (1)](https://github.com/user-attachments/assets/a08e659d-6560-45ce-8a7c-a6974c59e031)
+
+
 ## Contact
   - Kimiya Shabani @kimiyashabani
   - <a href="https://github.com/kimiyashabani/Car-loan-calculator"> Project link </a>
