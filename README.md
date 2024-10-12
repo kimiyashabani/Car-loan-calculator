@@ -42,23 +42,29 @@ Before installation, make sure your system meets the following requirements:
     -Python 3.x
 Furthermore, you will need to have an API Token Key. In order to do so
 1. sign up in:
-   <p>Collect API</p>
-   <a href="https://collectapi.com/">
-  <img src="https://collectapi.com/static/images/knot/knotapi@0,1x.png" alt="CollectAPI" width="30" height="30">
-</a>
+   <a href="https://collectapi.com/"> Collect API </a>
+2. Head to your account and then choose Profile
+3. Click on the API Token tab
+4. Copy your API Token
+   ![Screenshot 2024-10-12 164243](https://github.com/user-attachments/assets/68f61df6-3011-49bd-a25c-3587523f3eec)
+5. click on the following link
+   <a href="https://collectapi.com/api/gasPrice/gas-prices-api?tab=pricing"> Gas Price API </a>
+6. Choose Free Trial
+This will be the JSON result we'll get
+![Screenshot 2024-10-12 164612](https://github.com/user-attachments/assets/255952fb-3bc1-4835-a7a8-739830fcec3f)
 
 After getting your api key and set it in the Calculation.py
-1. Clone this repository:
+7. Clone this repository:
    ```bash
    git clone https://github.com/yourusername/yourprojectname.git
-2. Navigate to the project directory:
+8. Navigate to the project directory:
      ```bash
    cd yourprojectname
-3. (Optional) Create a virtual environment:
+9. (Optional) Create a virtual environment:
     ```bash
     python -m venv venv
     source venv/bin/activate   # On Windows use `venv\Scripts\activate`
-4.Install dependencies
+10.Install dependencies
     ```bash
     pip install -r requirements.txt
 
