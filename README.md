@@ -42,7 +42,7 @@ Before installation, make sure your system meets the following requirements:
     -Python 3.x
 Furthermore, you will need to have an API Token Key. In order to do so
 1. sign up in:
-   [![CollectAPI](https://collectapi.com/static/images/knot/knotapi@0,1x.png)](https://collectapi.com/)
+   [![CollectAPI](https://collectapi.com/static/images/knot/knotapi@0,1x.png)](https://collectapi.com/){:height="50px" width="50px"}
 1. Clone this repository:
    ```bash
    git clone https://github.com/yourusername/yourprojectname.git
