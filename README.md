@@ -67,6 +67,31 @@ After getting your api key and set it in the Calculation.py
     ```bash
     pip install -r requirements.txt
 
+
+## API Reference
+
+#### Get all states
+
+```http
+  GET /stateUsaPrice
+```
+
+| Field    | Description                |Type | API Key
+| :--------  | :------------------------- |:-------|:-------|
+| `api_key`  | Your API key, Enter state code AK, AL, WA... |`string` | **Required** |
+
+#### Get item
+
+```http
+ curl --request GET \
+  --url 'https://api.collectapi.com/gasPrice/stateUsaPrice?state=WA' \
+  --header 'authorization: apikey 2mEOtOkfOYQkkzpImIkoVB:0A45VXobnK5s425B50CbJp' \
+  --header 'content-type: application/json'
+
+
+
+
+
 ## Usage
 1. Run the main script:
    ```bash
@@ -92,7 +117,7 @@ If you like to contribute to this project please follow the guideline:
 ## License
 ## Contact
   - Kimiya Shabani @kimiyashabani
-  - Project link: 
+  - <a href="https://github.com/kimiyashabani/Car-loan-calculator"> Project link </a>
 
     
 
