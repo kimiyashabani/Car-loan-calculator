@@ -42,7 +42,10 @@ Before installation, make sure your system meets the following requirements:
     -Python 3.x
 Furthermore, you will need to have an API Token Key. In order to do so
 1. sign up in:
-   [![CollectAPI](https://collectapi.com/static/images/knot/knotapi@0,1x.png)](https://collectapi.com/){:height="50px" width="50px"}
+   <a href="https://collectapi.com/">
+  <img src="https://collectapi.com/static/images/knot/knotapi@0,1x.png" alt="CollectAPI" width="50" height="50">
+</a>
+
 After getting your api key and set it in the Calculation.py
 1. Clone this repository:
    ```bash
