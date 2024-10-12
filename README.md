@@ -52,7 +52,6 @@ Furthermore, you will need to have an API Token Key. In order to do so
 6. Choose Free Trial
 This will be the JSON result we'll get
 ![Screenshot 2024-10-12 164612](https://github.com/user-attachments/assets/255952fb-3bc1-4835-a7a8-739830fcec3f)
-
 After getting your api key and set it in the Calculation.py
 7. Clone this repository:
    ```bash
