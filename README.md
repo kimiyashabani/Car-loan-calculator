@@ -1,5 +1,5 @@
 # Car-loan-calculator
-<img src="https://github.com/user-attachments/assets/af6f0dac-3ef7-4f55-9888-1dd70bdf223a" alt="Car Loan Calculation Interface" width="600" height="400">
+<img src="https://github.com/user-attachments/assets/af6f0dac-3ef7-4f55-9888-1dd70bdf223a" alt="Car Loan Calculation Interface" width="400" height="400">
 
 
 ## Table of Contents
