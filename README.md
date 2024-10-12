@@ -71,7 +71,6 @@ After getting your api key and set it in the Calculation.py
 ## API Reference
 
 #### Get all states
-
 ```http
   GET /stateUsaPrice
 ```
@@ -81,16 +80,12 @@ After getting your api key and set it in the Calculation.py
 | `api_key`  | Your API key, Enter state code AK, AL, WA... |`string` | **Required** |
 
 #### Get item
-
 ```http
  curl --request GET \
   --url 'https://api.collectapi.com/gasPrice/stateUsaPrice?state=WA' \
   --header 'authorization: apikey 2mEOtOkfOYQkkzpImIkoVB:0A45VXobnK5s425B50CbJp' \
   --header 'content-type: application/json'
-
-
-
-
+```
 
 ## Usage
 1. Run the main script:
