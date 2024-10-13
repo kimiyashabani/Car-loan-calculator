@@ -67,7 +67,7 @@ This will be the JSON result we'll get
     ```bash
     python -m venv venv
     source venv/bin/activate   # On Windows use `venv\Scripts\activate`
-11.Install dependencies
+11. Install dependencies
     ```bash
     pip install -r requirements.txt
 
