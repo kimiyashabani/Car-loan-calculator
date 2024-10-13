@@ -59,10 +59,10 @@ This will be the JSON result we'll get
 
 8. Clone this repository:
    ```bash
-   git clone https://github.com/yourusername/yourprojectname.git
+   git clone [https://github.com/yourusername/yourprojectname.git](https://github.com/kimiyashabani/Car-loan-calculator)
 9. Navigate to the project directory:
      ```bash
-   cd yourprojectname
+   cd Car-loan-calculator
 10. (Optional) Create a virtual environment:
     ```bash
     python -m venv venv
