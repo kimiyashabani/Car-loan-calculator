@@ -1,12 +1,10 @@
 from bs4 import BeautifulSoup
-from xml.etree import ElementTree as ET
 import requests
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
 import time
 import numpy as np
-from Recommendation import Recommendation
 import http.client
 import json
 
