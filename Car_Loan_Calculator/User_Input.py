@@ -22,6 +22,7 @@ class Userinput:
             self.make = input("What is your car brand? ")
         self.model = input("What is your car model? ")
         self.year = int(input("Enter the year of your car: "))
+        self.purchase_price = int(input("What is the purchase price of the car? "))
         self.state = input("In which state of United states do you live? ")
         while self.state.title() not in Userinput.us_states:
             print("Please enter a valid state")

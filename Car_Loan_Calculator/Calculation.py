@@ -10,70 +10,69 @@ import json
 
 
 class Calculation:
-    def __init__(self, user_data, expected_purchase_price=100, expected_interest_amount=None):
+    def __init__(self, user_data, expected_interest_amount=None):
         self.user_data = user_data
-        self.purchase_price_amount = expected_purchase_price
         self.interest_amount = expected_interest_amount
 
-    # EXPECTED PURCHASE PRICE
-    def expected_purchase_price(self):
-        chrome_options = webdriver.ChromeOptions()
-        chrome_options.add_experimental_option("detach", True)
-        driver = webdriver.Chrome(options=chrome_options)
-        driver.get("https://www.caranddriver.com/research/a32771057/what-should-i-pay-for-a-car/")
-        time.sleep(3)
-        # accepting the cookies
-        accept_cookies = driver.find_element(By.XPATH, '//*[@id="onetrust-accept-btn-handler"]')
-        accept_cookies.click()
-        try:
-            time.sleep(3)
-            research_car = driver.find_element(By.CLASS_NAME, 'css-dhv4gi')
-            research_car.click()
-            time.sleep(1)
-            # Selecting Make
-            make_dropdown = driver.find_element(By.XPATH, '//*[@id="P0-8"]/div[2]/select')
-            make_dropdown.click()
-            make_options = make_dropdown.find_elements(By.TAG_NAME, 'Option')
-            for option in make_options:
-                if option.get_attribute('value').lower() == self.user_data.make.lower():
-                    option.click()
-                    break
-
-            # Selecting Model
-            time.sleep(1)
-            model_dropdown = driver.find_element(By.XPATH, '//*[@id="P0-8"]/div[3]/select')
-            model_dropdown.click()
-            model_options = model_dropdown.find_elements(By.TAG_NAME, 'Option')
-            for option in model_options:
-                if option.get_attribute('value').lower() == self.user_data.model.lower():
-                    option.click()
-                    break
-
-            # Selecting Year
-            time.sleep(1)
-            year_dropdown = driver.find_element(By.XPATH, '//*[@id="P0-8"]/div[4]/select')
-            year_dropdown.click()
-            year_options = year_dropdown.find_elements(By.TAG_NAME, 'Option')
-            for option in year_options:
-                if option.get_attribute('value') == self.user_data.year:
-                    option.click()
-                    break
-            # Clicking on Submit Button
-            time.sleep(1)
-            submit_button = driver.find_element(By.CLASS_NAME, 'e1ketqus1')
-            submit_button.click()
-            time.sleep(5)
-            purchase_price = driver.find_element(By.CLASS_NAME, 'css-1qdemya')
-            self.purchase_price_amount = int(purchase_price.text.replace("$", "").replace(",", ""))
-            return self.purchase_price_amount
-
-        except NoSuchElementException:
-            return None
-
-
-
-        # closing the driver
-        driver.quit()
+    # # EXPECTED PURCHASE PRICE
+    # def expected_purchase_price(self):
+    #     chrome_options = webdriver.ChromeOptions()
+    #     chrome_options.add_experimental_option("detach", True)
+    #     driver = webdriver.Chrome(options=chrome_options)
+    #     driver.get("https://www.caranddriver.com/research/a32771057/what-should-i-pay-for-a-car/")
+    #     time.sleep(3)
+    #     # accepting the cookies
+    #     accept_cookies = driver.find_element(By.XPATH, '//*[@id="onetrust-accept-btn-handler"]')
+    #     accept_cookies.click()
+    #     try:
+    #         time.sleep(3)
+    #         research_car = driver.find_element(By.CLASS_NAME, 'css-dhv4gi')
+    #         research_car.click()
+    #         time.sleep(1)
+    #         # Selecting Make
+    #         make_dropdown = driver.find_element(By.XPATH, '//*[@id="P0-8"]/div[2]/select')
+    #         make_dropdown.click()
+    #         make_options = make_dropdown.find_elements(By.TAG_NAME, 'Option')
+    #         for option in make_options:
+    #             if option.get_attribute('value').lower() == self.user_data.make.lower():
+    #                 option.click()
+    #                 break
+    #
+    #         # Selecting Model
+    #         time.sleep(1)
+    #         model_dropdown = driver.find_element(By.XPATH, '//*[@id="P0-8"]/div[3]/select')
+    #         model_dropdown.click()
+    #         model_options = model_dropdown.find_elements(By.TAG_NAME, 'Option')
+    #         for option in model_options:
+    #             if option.get_attribute('value').lower() == self.user_data.model.lower():
+    #                 option.click()
+    #                 break
+    #
+    #         # Selecting Year
+    #         time.sleep(1)
+    #         year_dropdown = driver.find_element(By.XPATH, '//*[@id="P0-8"]/div[4]/select')
+    #         year_dropdown.click()
+    #         year_options = year_dropdown.find_elements(By.TAG_NAME, 'Option')
+    #         for option in year_options:
+    #             if option.get_attribute('value') == self.user_data.year:
+    #                 option.click()
+    #                 break
+    #         # Clicking on Submit Button
+    #         time.sleep(1)
+    #         submit_button = driver.find_element(By.CLASS_NAME, 'e1ketqus1')
+    #         submit_button.click()
+    #         time.sleep(5)
+    #         purchase_price = driver.find_element(By.CLASS_NAME, 'css-1qdemya')
+    #         self.purchase_price_amount = int(purchase_price.text.replace("$", "").replace(",", ""))
+    #         return self.purchase_price_amount
+    #
+    #     except NoSuchElementException:
+    #         return None
+    #
+    #
+    #
+    #     # closing the driver
+    #     driver.quit()
 
     # EXPECTED INSURANCE COST
     def expected_insurance_cost(self):
@@ -109,9 +108,9 @@ class Calculation:
     def loan_calculator(self):
 
         if self.user_data.down_payment_amount is not None:
-            p = self.purchase_price_amount - self.user_data.down_payment_amount
+            p = self.user_data.purchase_price - self.user_data.down_payment_amount
         else:
-            p = self.purchase_price_amount
+            p = self.user_data.purchase_price
 
         r = self.interest_amount / 100 / 12
         n = self.user_data.time_of_loan
@@ -141,7 +140,7 @@ class Calculation:
 
         headers = {
             'content-type': "application/json",
-            'authorization': "apikey 2mEOtOkfOYQkkzpImIkoVB:0A45VXobnK5s425B50CbJp"
+            'authorization': "apikey 14JQaezZknaJPIBYCI4Rde:4iQXfUkr4My2rKXWF3bYGk"
         }
 
         conn.request("GET", f"/gasPrice/stateUsaPrice?state={user_state_abbrev}", headers=headers)
@@ -176,9 +175,6 @@ class Calculation:
     def calling_all_methods(self):
         print("----- Calculating All Costs -----")
 
-        expected_purchase_price = self.expected_purchase_price()
-        print(f"Expected Purchase Price: {expected_purchase_price}")
-
         expected_insurance_cost = self.expected_insurance_cost()
         print(f"Expected Insurance Cost: {expected_insurance_cost}")
 
@@ -206,7 +202,7 @@ class Calculation:
             "down_payment": self.user_data.down_payment_amount,
             "time_of_loan": self.user_data.time_of_loan,
             "average_miles_per_month": self.user_data.average_miles_per_month,
-            "expected_purchase_price": expected_purchase_price,
+            "expected_purchase_price": self.user_data.purchase_price,
             "expected_insurance_cost": expected_insurance_cost,
             "interest_rate": interest_rate,
             "monthly_loan_payment": monthly_loan_payment,
